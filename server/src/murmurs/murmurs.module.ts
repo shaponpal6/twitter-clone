@@ -7,4 +7,4 @@ import { MurmursService } from './murmurs.service';
   controllers: [MurmursController],
   providers: [MurmursService],
 })
-export class AppModule {}
+export class MurmursModule {}

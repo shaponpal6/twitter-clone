@@ -1,8 +1,8 @@
 export interface Murmurs{
     id?: string;
-    title: string;
-    description: string;
-    author?: string;
+    tweetId: string;
+    userId: string;
+    murmursType?: string;
     status?: string;
     created?: string;
     updated?: string;
