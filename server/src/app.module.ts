@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersService } from './users/users.service';
-import { UsersController } from './users/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
 import { TweetsModule } from './tweets/tweets.module';
 import { MurmursModule } from './murmurs/murmurs.module';
 import { FollowersModule } from './followers/followers.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -23,9 +22,10 @@ import { FollowersModule } from './followers/followers.module';
     }),
     TweetsModule,
     MurmursModule,
-    FollowersModule
+    FollowersModule,
+    UsersModule
   ],
-  controllers: [AppController, UsersController],
-  providers: [AppService, UsersService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

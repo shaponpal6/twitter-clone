@@ -18,7 +18,7 @@ export enum StatusType {
 
 @Entity()
 export class Users{
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn()
     id: string;
 
     @Column({
