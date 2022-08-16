@@ -1,5 +1,5 @@
 import { Users } from './User'
-import { Murmurs } from './Murmurs'
+import { Murmurs } from '../murmurs/entity/murmurs.entity'
 import { Followers } from './Followers'
 import { Tweets } from '../tweets/entity/tweets.entity'
 

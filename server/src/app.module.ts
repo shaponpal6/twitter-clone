@@ -10,6 +10,7 @@ import { UsersController } from './users/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
 import { TweetsModule } from './tweets/tweets.module';
+import { MurmursModule } from './murmurs/murmurs.module';
 
 @Module({
   imports: [
@@ -23,9 +24,10 @@ import { TweetsModule } from './tweets/tweets.module';
       entities: entities,
       synchronize: true,
     }),
-    TweetsModule
+    TweetsModule,
+    MurmursModule
   ],
-  controllers: [AppController, MurmursController, FollowsController, UsersController],
-  providers: [AppService, MurmursService, FollowsService, UsersService],
+  controllers: [AppController, FollowsController, UsersController],
+  providers: [AppService, FollowsService, UsersService],
 })
 export class AppModule {}
