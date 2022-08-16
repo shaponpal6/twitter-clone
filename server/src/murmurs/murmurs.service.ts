@@ -1,34 +1,109 @@
 import { Injectable } from '@nestjs/common';
-import { Murmurs } from './interfaces/murmurs.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateMurmursDto } from './dto/create-murmurs.dto';
+import { Murmurs as MurmursEntity } from './entity/murmurs.entity';
 
 @Injectable()
 export class MurmursService {
-    private readonly murmurs: Murmurs[] = [
-        {
-            id: "32412",
-            tweetId: "21211",
-            userId: "243214",
-            murmursType: "murmurs",
-            status: "active",
-            created: "12 july, 2022 12:22:21",
-            updated: "12 july, 2022 12:22:21",
-        },
-        {
-            id: "344334",
-            tweetId: "212211",
-            userId: "243214",
-            murmursType: "murmurs",
-            status: "active",
-            created: "12 july, 2022 12:22:21",
-            updated: "12 july, 2022 12:22:21",
+    constructor(
+        @InjectRepository(MurmursEntity)
+        private readonly murmursRepository: Repository<MurmursEntity>
+      ) { }
+    
+    
+      /**
+       * Create a new Tweets entity
+       * @param murmurs 
+       * @returns 
+       */
+      async create(murmurs: CreateMurmursDto): Promise<MurmursEntity> {
+        const newTweet = new MurmursEntity();
+    
+        Object.keys(murmurs).forEach((key) => {
+          newTweet[key] = murmurs[key];
+        });
+    
+        try {
+          return await this.murmursRepository.save(newTweet);
+        } catch (err) {
+          return err;
         }
-    ];
-
-    findAll(): Murmurs[]{
-        return this.murmurs
-    }
-
-    findOne(id: string): Murmurs{
-        return this.murmurs.find(item => item.id === id)
-    }
+      }
+    
+    
+      /**
+       * Update Tweet
+       * @param id 
+       * @param murmurs 
+       * @returns 
+       */
+      async update(id:string, murmurs: CreateMurmursDto){
+        const newTweet = new MurmursEntity();
+    
+        Object.keys(murmurs).forEach((key) => {
+          newTweet[key] = murmurs[key];
+        });
+    
+        try {
+          return await this.murmursRepository.update(id, newTweet);
+        } catch (err) {
+          return err;
+        }
+      }
+    
+    
+      /**
+       * Find all Tweets
+       * @returns 
+       */
+      async findAll(): Promise<MurmursEntity[]> {
+        try {
+          return await this.murmursRepository.find({});
+        } catch (err) {
+          return err;
+        }
+      }
+    
+    
+      /**
+       * Find murmurs by id
+       * @param id 
+       * @returns 
+       */
+      async findOne(id: string): Promise<MurmursEntity> {
+        try {
+          return await this.murmursRepository.findOne({where: {id: id}});
+        } catch (err) {
+          return err;
+        }
+      }
+    
+    
+      /**
+       * Get all murmur by tweetId
+       * @param tweetId 
+       * @returns 
+       */
+      async getMurmurByTweetId(tweetId: string): Promise<MurmursEntity[]> {
+        try {
+          return await this.murmursRepository.find({where: {tweetId: tweetId}});
+        } catch (err) {
+          return err;
+        }
+      }
+    
+    
+      /**
+       * Delete murmurs by id
+       * @param id 
+       * @returns 
+       */
+      async delete(id: string) {
+        try {
+          return await this.murmursRepository.delete(id);
+        } catch (err) {
+          return err;
+        }
+      }
 }

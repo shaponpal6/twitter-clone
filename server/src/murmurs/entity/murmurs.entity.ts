@@ -16,7 +16,7 @@ export enum MurmursStatusType {
 
 @Entity()
 export class Murmurs{
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn()
     id: string;
 
     @Column({

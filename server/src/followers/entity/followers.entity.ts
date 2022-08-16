@@ -7,7 +7,7 @@ export enum FollowersStatusType {
 
 @Entity()
 export class Followers{
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn()
     id: string;
 
     @Column({
