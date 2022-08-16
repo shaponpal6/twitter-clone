@@ -11,7 +11,7 @@ export enum TweetStatusType {
 
 @Entity()
 export class Tweets{
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn()
     id: string;
 
     @Column({

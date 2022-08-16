@@ -5,40 +5,79 @@ import {
     Put,
     Delete,
     Body,
-    Param } from '@nestjs/common';
+    Param, 
+    UsePipes,
+    ValidationPipe,
+    HttpStatus
+} from '@nestjs/common';
 import { CreateMurmursDto } from './dto/create-murmurs.dto';
 import { MurmursService } from './murmurs.service';
-import { Murmurs } from './interfaces/murmurs.interface';
+// import { Murmurs } from './interfaces/murmurs.interface';
 
 
-@Controller('murmurs')
+@Controller('api/murmurs')
 export class MurmursController {
     constructor(private readonly murmursService: MurmursService){}
 
     @Get()
-    findAll(): Murmurs[]{
-        return this.murmursService.findAll();
+    async findAll(): Promise<CreateMurmursDto[]> {
+      return await this.murmursService.findAll() as CreateMurmursDto[];
+    }
+    
+
+    @Get(':id') 
+    async findOneById(@Param('id') id: string): Promise<object> {
+      const data =  await this.murmursService.findOne(id);
+        return {
+          statusCode: HttpStatus.OK,
+          message: `Murmur id ${id} fetched successfully`,
+          data
+        };
     }
 
-    @Get(':id')
-    findOne(@Param('id') id): Murmurs{
-        return this.murmursService.findOne(id);
+
+    @Get('count/:tweetId') 
+    async getMurmursByTweetId(@Param('tweetId') tweetId: string): Promise<object> {
+      const data =  await this.murmursService.getMurmurByTweetId(tweetId);
+        return {
+          statusCode: HttpStatus.OK,
+          message: `Murmur id ${tweetId} fetched successfully`,
+          data
+        };
     }
+
 
     @Post()
-    create(@Body() CreateMurmursDto: CreateMurmursDto): CreateMurmursDto{
-        return CreateMurmursDto
+    @UsePipes(ValidationPipe)
+    async create(@Body() tweetDto: CreateMurmursDto){
+        const data =  await this.murmursService.create(tweetDto)
+        return {
+          statusCode: HttpStatus.OK,
+          message: 'Murmur created successfully',
+          data
+        };
     }
+
 
     @Put(':id')
-    update(@Body() UpdateMurmursDto: CreateMurmursDto, @Param('id') id): CreateMurmursDto{
-        return UpdateMurmursDto
+    @UsePipes(ValidationPipe)
+    async update(@Body() tweetDto: CreateMurmursDto, @Param('id') id: string){
+        const data =  await this.murmursService.update(id, tweetDto)
+        return {
+          statusCode: HttpStatus.OK,
+          message: 'Murmur Updated successfully',
+          data
+        };
     }
+
 
     @Delete(':id')
-    delete(@Param('id') id): string{
-        return id
+    async delete(@Param('id') id: string) {
+        const data =  await this.murmursService.delete(id);
+        return {
+          statusCode: HttpStatus.OK,
+          message: 'Murmur deleted successfully',
+          data
+        };
     }
-
-   
 }

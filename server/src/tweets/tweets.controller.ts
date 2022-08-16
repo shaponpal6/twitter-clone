@@ -5,40 +5,79 @@ import {
     Put,
     Delete,
     Body,
-    Param } from '@nestjs/common';
+    Param, 
+    UsePipes,
+    ValidationPipe,
+    HttpStatus
+} from '@nestjs/common';
 import { CreateTweetsDto } from './dto/create-tweets.dto';
 import { TweetsService } from './tweets.service';
-import { Tweets } from './interfaces/tweets.interface';
 
-
-@Controller('tweets')
+@Controller('api/tweets')
 export class TweetsController {
+    
     constructor(private readonly tweetsService: TweetsService){}
 
+
     @Get()
-    findAll(): Tweets[]{
-        return this.tweetsService.findAll();
+    async findAll(): Promise<CreateTweetsDto[]> {
+      return await this.tweetsService.findAll() as CreateTweetsDto[];
+    }
+    
+
+    @Get(':id') 
+    async findOneById(@Param('id') id: string): Promise<object> {
+      const data =  await this.tweetsService.findOne(id);
+        return {
+          statusCode: HttpStatus.OK,
+          message: `Tweet id ${id} fetched successfully`,
+          data
+        };
     }
 
-    @Get(':id')
-    findOne(@Param('id') id): Tweets{
-        return this.tweetsService.findOne(id);
+
+    @Get('mytweet/:userId') 
+    async getUserTweet(@Param('userId') userId: string): Promise<object> {
+      const data =  await this.tweetsService.getTweetByUserId(userId);
+        return {
+          statusCode: HttpStatus.OK,
+          message: `Tweet id ${userId} fetched successfully`,
+          data
+        };
     }
+
 
     @Post()
-    create(@Body() CreateTweetsDto: CreateTweetsDto): CreateTweetsDto{
-        return CreateTweetsDto
+    @UsePipes(ValidationPipe)
+    async create(@Body() tweetDto: CreateTweetsDto){
+        const data =  await this.tweetsService.create(tweetDto)
+        return {
+          statusCode: HttpStatus.OK,
+          message: 'Tweet created successfully',
+          data
+        };
     }
+
 
     @Put(':id')
-    update(@Body() UpdateTweetsDto: CreateTweetsDto, @Param('id') id): CreateTweetsDto{
-        return UpdateTweetsDto
+    @UsePipes(ValidationPipe)
+    async update(@Body() tweetDto: CreateTweetsDto, @Param('id') id: string){
+        const data =  await this.tweetsService.update(id, tweetDto)
+        return {
+          statusCode: HttpStatus.OK,
+          message: 'Tweet Updated successfully',
+          data
+        };
     }
+
 
     @Delete(':id')
-    delete(@Param('id') id): string{
-        return id
+    async delete(@Param('id') id: string) {
+        const data =  await this.tweetsService.delete(id);
+        return {
+          statusCode: HttpStatus.OK,
+          message: 'Tweet deleted successfully',
+          data
+        };
     }
-
-   
 }
