@@ -1,7 +1,7 @@
 import { Users } from './User'
 import { Murmurs } from './Murmurs'
 import { Followers } from './Followers'
-import { Tweets } from './Tweet'
+import { Tweets } from '../tweets/entity/tweets.entity'
 
 const entities = [Users, Murmurs, Followers, Tweets];
 

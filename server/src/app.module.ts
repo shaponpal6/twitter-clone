@@ -3,14 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MurmursController } from './murmurs/murmurs.controller';
 import { MurmursService } from './murmurs/murmurs.service';
-import { TweetsService } from './tweets/tweets.service';
-import { TweetsController } from './tweets/tweets.controller';
 import { FollowsController } from './follows/follows.controller';
 import { FollowsService } from './follows/follows.service';
 import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
+import { TweetsModule } from './tweets/tweets.module';
 
 @Module({
   imports: [
@@ -24,8 +23,9 @@ import entities from './typeorm';
       entities: entities,
       synchronize: true,
     }),
+    TweetsModule
   ],
-  controllers: [AppController, MurmursController, TweetsController, FollowsController, UsersController],
-  providers: [AppService, MurmursService, TweetsService, FollowsService, UsersService],
+  controllers: [AppController, MurmursController, FollowsController, UsersController],
+  providers: [AppService, MurmursService, FollowsService, UsersService],
 })
 export class AppModule {}
