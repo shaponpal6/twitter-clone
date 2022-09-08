@@ -2,7 +2,7 @@
 
 
 ### Directory structure
-- /src -> Next(Client)
+- /app -> Next(Client)
 - /server -> Nest(Server)
 - /db -> MySQL(DB)
 
