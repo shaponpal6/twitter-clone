@@ -1,10 +1,18 @@
 # Web Application Test with Nodejs, Typescript
 
+
+### Directory structure
+- /src -> Next(Client)
+- /server -> Nest(Server)
+- /db -> MySQL(DB)
+
+
 # FOR API (Backend)
 
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Postman collection JSON](https://raw.githubusercontent.com/shaponpal6/twitter-clone/main/postman/Twitter%20Clone.postman_collection.json) test api endpoint.
 
 ## Installation
 
@@ -87,23 +95,6 @@ If you want to add new function after complete to implement below function, it's
    * User information (e.g. name, followCount, followedCount)
    * List of the user's murmurs
 
-### Point
-* You can proceed with the implementation freely.
-* Of course, you can also search the Web or refer to the books you have.
-* The deadline is one week after the assignment is handed over. The date and time will be announced separately.
-* Please aim to implement all the features in client and backend. CSS is not evaluated, so the minimum design style is fine.
-* You can ask any questions about the content. If any question, please send email to uemura1shi.1104@gmail.com and @cc aminul.islam@venturas-bd.com and mizanur.rahman@venturas-bd.com. Please note that I do not guarantee an immediate reply.
-
-## How to proceed with development
-1. Download `webapp_test-main.zip` from email. 
-1. Create repository for your private GitHub account and push unzipped files to main branch.
-1. Give the administrator privileges of the repository to the following Github ids.  
- ・ catzshi<br>
- ・ 2raminul<br>
- ・ bytegroup
-1. Create `develop` branch from main.
-1. Create the feature branch for your develop branch, submit a pull request as appropriate, and merge it into your develop branch.
-1. When development is complete, create a Pull request from develop branch to main branch, and write Appeal Points, Implemented Features, Unimplemented Features and Impressions for this webapp test to the Pull request overview.
 
 ## How to start the development environment
 ### Programming Language
@@ -111,40 +102,4 @@ If you want to add new function after complete to implement below function, it's
 * Javascript
 
 note: Please program by Typescript as much as possible. The Typescript ratio in your project is also evaluated.
-
-### Directory structure
-- /src -> Nuxt(Client)
-- /server -> Express(Server)
-- /db -> MySQL(DB)
-
-### install modules
-It is assumed that node(v12.x.x), npm and yarn are installed.
-The ability to build a development environment is also the subject of this test, so even if an error occurs, please resolve it on your own.
-
-sample
-
-```
-$ node -v
-v12.18.3
-$ npm -v
-6.14.6
-$ yarn -v
-1.22.4
-```
-
-### setup project
-#### DB
-1. cd db && docker-compose build
-1. docker-compose up -d
-
-#### Server
-1. cd server && npm run ts-node index.ts
-
-#### Client
-1. cd src && yarn dev
-
-### How to confirm to success to build environment
-1. You access to http://localhost:3000/
-1. It's success if render html.
-
 
